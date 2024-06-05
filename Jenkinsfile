@@ -56,15 +56,13 @@ pipeline {
                 }
         }
         stage('Docker compose (FrontEnd BackEnd MySql)') {
-                    steps {
-                        script {
-                           sh '''
-
-                            docker-compose up -d
-                            '''
-                        }
-                    }
+            steps {
+                script {
+                    sh '/usr/local/bin/docker-compose up -d'
                 }
+            }
+        }
+
         stage('Deploy to nexus') {
             steps {
                 echo 'Deploying to Nexus server'
