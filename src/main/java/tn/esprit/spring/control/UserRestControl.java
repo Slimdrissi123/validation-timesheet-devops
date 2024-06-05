@@ -1,21 +1,20 @@
 package tn.esprit.spring.control;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import tn.esprit.spring.entities.User;
-import tn.esprit.spring.services.IUserService;
+import tn.esprit.spring.services.UserService;
 
 // userRestControl
 @RestController // = @Controller + @ResponseBody 
 @RequestMapping("/user")
 public class UserRestControl {
 
-	@Autowired 
-	IUserService userService; 
+	@Autowired
+    UserService userService;
 
 	
 	// URL : http://localhost:????/????/????/retrieve-all-users

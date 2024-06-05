@@ -4,7 +4,7 @@ import java.util.List;
 
 import tn.esprit.spring.entities.User;
 
-public interface IUserService { 
+public interface UserService {
 	 
 	List<User> retrieveAllUsers(); 
 	User addUser(User u);
