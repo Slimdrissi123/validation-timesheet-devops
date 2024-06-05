@@ -39,7 +39,7 @@ pipeline {
         stage('Docker Build') {
                     steps {
                         script {
-                            sh 'sudo docker build -t sdrissi/timesheet-devops:${BUILD_VERSION} .'
+                            sh 'docker build -t sdrissi/timesheet-devops:${BUILD_VERSION} .'
                         }
                     }
         }
