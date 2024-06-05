@@ -66,6 +66,12 @@ pipeline {
             }
         }
     }
-   
+                post {
+                always {
+                emailext subject: "Pipeline Status: ${currentBuild.result}",
+                      body: "The pipeline status is: ${currentBuild.result}",
+                      to: "bedir.malek@esprit.tn"
+        }
+    }
 
 }
