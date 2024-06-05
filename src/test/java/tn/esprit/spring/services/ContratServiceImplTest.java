@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
-class ContratServiceImplMock {
+class ContratServiceImplTest {
 
     @Mock
     private ContratRepository contratRepository;
