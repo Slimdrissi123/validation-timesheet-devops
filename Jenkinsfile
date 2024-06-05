@@ -60,7 +60,7 @@ pipeline {
                         script {
                            sh '''
                             docker-compose down -v
-                            docker-compose up -d
+                            docker-compose up -d -f docker-compose.yaml
                             '''
                         }
                     }
