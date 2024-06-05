@@ -47,8 +47,10 @@ pipeline {
         stage('Push to dockerhub'){
                     steps{
                         script{
-                            def customImage =docker.image("ssdrissi/timesheet-devops:${BUILD_VERSION}")
-                            customImage.push()
+                            docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS){
+                                def customImage =docker.image("ssdrissi/timesheet-devops:${BUILD_VERSION}")
+                                customImage.push()
+                            }
                         }
                     }
         }
