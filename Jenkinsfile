@@ -46,10 +46,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub_account', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                    sh '''
-                    docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKRERHUB_PASSWORD"
-                    docker push mbedir/timesheet-devops:1.0.0
-                    '''
+                    
+                    sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKRERHUB_PASSWORD}"
+                    sh "docker push mbedir/timesheet-devops:1.0.0"
+                    
                 } 
             }
         }
