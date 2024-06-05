@@ -47,7 +47,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub_account', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     sh '''
-                    echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                    docker login -u "$DOCKERHUB_USERNAME" --password-stdin
                     docker push mbedir/timesheet-devops:1.0.0
                     '''
                 } 
