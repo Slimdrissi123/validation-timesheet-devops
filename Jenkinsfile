@@ -70,7 +70,7 @@ pipeline {
             steps {
                 emailext subject: "Pipeline Status: ${currentBuild.result}",
                               body: "The pipeline status is: ${currentBuild.result}",
-                              to: "bedir.malek@esprit.tn"
+                              to: "bedirloukalaklouka123@gmail.com"
                               
                 }
             }
