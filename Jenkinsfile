@@ -65,20 +65,15 @@ pipeline {
                 }
             }
         }
-    }
-  
-
-    post {
-        always {
-            // Email notification stage
-            stage('Email Notification') {
-                steps {
-                    emailext subject: "Pipeline Status: ${currentBuild.result}",
+           // Email notification stage
+        stage('Email Notification') {
+            steps {
+                emailext subject: "Pipeline Status: ${currentBuild.result}",
                               body: "The pipeline status is: ${currentBuild.result}",
                               to: "bedir.malek@esprit.tn"
                 }
             }
-        }
     }
+    
 
 }
