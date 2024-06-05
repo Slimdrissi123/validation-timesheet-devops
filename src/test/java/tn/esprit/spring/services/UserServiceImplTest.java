@@ -1,24 +1,30 @@
 package tn.esprit.spring.services;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.User;
 import tn.esprit.spring.repository.UserRepository;
 
-@RunWith(MockitoJUnitRunner.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
     @Mock
@@ -27,21 +33,44 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    @Before
-    public void setUp() {
-        // Stubbing example for retrieveAllUsers method
-        List<User> users = new ArrayList<>();
-        users.add(new User(1L, "John", "Doe", new Date(), Role.CHEF_DEPARTEMENT));
-        users.add(new User(2L, "Alice", "Smith", new Date(), Role.INGENIEUR));
 
-        when(userRepository.findAll()).thenReturn(users);
+
+    @Test
+    public void testAddUser() {
+        User user = new User(1L, "John", "Doe", new Date(), Role.CHEF_DEPARTEMENT);
+        when(userRepository.save(user)).thenReturn(user);
+
+        User addedUser = userService.addUser(user);
+        assertNotNull(addedUser);
+        assertEquals(user.getFirstName(), addedUser.getFirstName());
+        assertEquals(user.getLastName(), addedUser.getLastName());
+        assertEquals(user.getDateNaissance(), addedUser.getDateNaissance());
+        assertEquals(user.getRole(), addedUser.getRole());
     }
 
     @Test
-    public void testRetrieveAllUsers() {
-        List<User> users = userService.retrieveAllUsers();
-        assertEquals(2, users.size());
+    public void testRetrieveUser() {
+        // Stubbing example for retrieveUser method
+        User user = new User(1L, "John", "Doe", new Date(), Role.CHEF_DEPARTEMENT);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+
+        User retrievedUser = userService.retrieveUser(String.valueOf(1L));
+        assertNotNull(retrievedUser);
+        assertEquals(user.getLastName(), retrievedUser.getLastName());
+        assertEquals(user.getFirstName(), retrievedUser.getFirstName());
     }
 
-    // Similarly, you can write tests for other methods like addUser, deleteUser, updateUser, and retrieveUser
+
+ 
+
+
+
+
+    @Test
+    public void testDeleteUser() {
+        Long userId = 1L;
+        doNothing().when(userRepository).deleteById(userId);
+        userService.deleteUser(String.valueOf(userId));
+        verify(userRepository, times(1)).deleteById(userId);
+    }
 }
