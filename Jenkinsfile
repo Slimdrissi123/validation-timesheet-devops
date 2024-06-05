@@ -67,7 +67,8 @@ pipeline {
         }
     }
   
-  post {
+
+    post {
         always {
             // Email notification stage
             stage('Email Notification') {
