@@ -43,6 +43,16 @@ pipeline {
                         }
                     }
         }
+        stage('Push to dockerhub'){
+                    steps{
+                        script{
+                            sh '''
+                            docker login -u ssdrissi
+                            docker push sdrissi/timesheet-devops:${BUILD_VERSION}
+                            '''
+                        }
+                    }
+        }
         stage('Deploy to nexus') {
             steps {
                 echo 'Deploying to Nexus server'
