@@ -49,7 +49,7 @@ pipeline {
                         script {
                             withCredentials([usernamePassword(credentialsId: '307f196d-c538-49e8-b350-bc5caa31b442', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
 
-                            sh "docker login -u "$DOCKERHUB_USERNAME" --password-stdin"
+                            sh "docker login -u ${DOCKERHUB_USERNAME} --password-stdin"
                             sh "docker push ssdrissi/timesheet-devops:${BUILD_VERSION}"
                         }
                     }
