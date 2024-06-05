@@ -46,7 +46,7 @@ pipeline {
              steps {
                  script {
                      sh '''
-                     docker login -u mbedir -p 223AFT1221
+                     docker login -u mbedir
                      docker push mbedir/timesheet-devops:1.0.0
                      '''
                 }
