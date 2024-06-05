@@ -42,16 +42,19 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image to DockerHub') {
-             steps {
-                 script {
-                     sh '''
-                     docker login -u mbedir
-                     docker push mbedir/timesheet-devops:1.0.0
-                     '''
-                }
+      stage('Push Docker Image to DockerHub') {
+    steps {
+        script {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                sh '''
+                echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                docker push mbedir/timesheet-devops:1.0.0
+                '''
             }
-         }
+        }
+    }
+}
+
         stage('Docker compose (FrontEnd BackEnd MySql)') {
             steps {
                 script {
