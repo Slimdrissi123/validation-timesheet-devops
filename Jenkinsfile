@@ -3,6 +3,7 @@ pipeline {
     environment {
         MAIN_VERSION = "1.1"
         BUILD_VERSION = "${MAIN_VERSION}-b${env.BUILD_NUMBER}"
+        DOCKER_CREDENTIALS = credentials('307f196d-c538-49e8-b350-bc5caa31b442')
     }
     stages {
         stage('Clean') {
@@ -39,17 +40,15 @@ pipeline {
         stage('Docker Build') {
                     steps {
                         script {
-                            sh 'docker build -t sdrissi/timesheet-devops:${BUILD_VERSION} .'
+                            docker.build("ssdrissi/timesheet-devops:${BUILD_VERSION}")
                         }
                     }
         }
         stage('Push to dockerhub'){
                     steps{
                         script{
-                            sh '''
-                            docker login -u ssdrissi
-                            docker push sdrissi/timesheet-devops:${BUILD_VERSION}
-                            '''
+                            def customImage =docker.image("ssdrissi/timesheet-devops:${BUILD_VERSION}")
+                            customImage.push()
                         }
                     }
         }
