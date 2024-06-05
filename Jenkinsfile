@@ -44,17 +44,16 @@ pipeline {
                 }
             }
         }
-        stage('Push to dockerhub') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: '307f196d-c538-49e8-b350-bc5caa31b442', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_USERNAME}:${DOCKER_PASSWORD}") {
-                            def customImage = docker.image("ssdrissi/timesheet-devops:${BUILD_VERSION}")
-                            customImage.push()
+        stage('Push Docker Image to DockerHub') {
+                    steps {
+                        script {
+                            withCredentials([usernamePassword(credentialsId: '307f196d-c538-49e8-b350-bc5caa31b442', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+
+                            sh "docker login -u "$DOCKERHUB_USERNAME" --password-stdin"
+                            sh "docker push ssdrissi/timesheet-devops:${BUILD_VERSION}"
                         }
                     }
                 }
-            }
         }
         stage('Deploy to nexus') {
             steps {
