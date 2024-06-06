@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
 
     tools {
         maven 'M2_HOME' // Assumes Maven is installed and named 'M2_HOME' in Jenkins global tool configuration
@@ -15,6 +18,16 @@ pipeline {
         stage('Tests - JUnit/Mockito') {
             steps {
                 sh 'mvn test'
+            }
+        }
+        stage('Build package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install site surefire-report:report'
             }
         }
 
