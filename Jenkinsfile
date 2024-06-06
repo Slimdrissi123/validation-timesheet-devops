@@ -69,5 +69,47 @@ pipeline {
                 sh 'mvn deploy'
             }
         }
+
+        stage('Email Notification') {
+                    steps {
+                        mail bcc: '',
+                             body: '''Stage: GIT Pull
+                                    - Pulling from Git...
+
+                                    Stage: Maven Clean Compile
+                                    - Building Spring project...
+
+                                    Stage: Test - JUNIT/MOCKITO
+                                    - Testing Spring project...
+
+                                    Stage: JaCoCo Report
+                                    - Generating JaCoCo Coverage Report...
+
+                                    Stage: SonarQube Analysis
+                                    - Running Sonarqube analysis...
+
+                                    Stage: Deploy to Nexus
+                                    - Deploying to Nexus...
+
+                                    Stage: Build Docker Image
+                                    - Building Docker image for the application...
+
+                                    Stage: Push Docker Image
+                                    - Pushing Docker image to Docker Hub...
+
+                                    Stage: Docker Compose
+                                    - Running Docker Compose...
+
+                                    Stage: Monitoring Services G/P
+                                    - Starting Prometheus and Grafana...
+
+                                    Final Report: The pipeline has completed successfully. No action required''',
+                             cc: '',
+                             from: '',
+                             replyTo: '',
+                             subject: 'Pipeline build status',
+                             to: 'slim.drissi@esprit.tn'
+                    }
+                }
     }
 }
