@@ -74,7 +74,7 @@ pipeline {
             steps {
                 emailext (
                     subject: "Pipeline Status: ${currentBuild.currentResult}",
-                    body: """<p>Stage: ${currentBuild.currentBuild.fullDisplayName}</p>
+                    body: """<p>Stage: ${env.STAGE_NAME}</p>
                              <p>Status: ${currentBuild.currentResult}</p>
                              <p>Build URL: ${env.BUILD_URL}</p>""",
                     to: "slim.drissi@esprit.tn"
