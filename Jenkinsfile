@@ -4,10 +4,10 @@ pipeline {
         maven 'M2_HOME' // Assumes Maven is installed and named 'M2_HOME' in Jenkins global tool configuration
     }
     stages {
-        stage('Maven Clean Compile') {
+        stage('Compile') {
+
             steps {
-                sh 'mvn clean'
-                echo 'Running Maven Compile'
+                // Compile the Maven project
                 sh 'mvn compile'
             }
         }
@@ -15,17 +15,6 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-      
-        stage('Build package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-        stage('Maven Install') {
-            steps {
-                sh 'mvn install'
-            }
-        }
         }// The first stage (Rapport JaCoCo) ensures that coverage data is collected and a report is generated.
          // This includes running the tests and creating a report that shows which parts of the code were covered by the tests
         stage('Rapport JaCoCo') {
