@@ -28,6 +28,7 @@ Compétences : Jenkins · Sonarqube · Nexus · JUnit · graphana · prometheus 
 ![Alt text](./sonar.png)
 ![Alt text](./pipline.png)
 ![Alt text](./nexus.png)
+![Alt text](./jacocoSuccess.png)
 ![Alt text](./dockerhub.png)
 ![Alt text](./prometheus.png)
 ![Alt text](./grafana.png)
