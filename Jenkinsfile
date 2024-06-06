@@ -20,17 +20,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Build package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn clean install site surefire-report:report'
-                sh 'tree'
-            }
-        }
 
         stage('SonarQube analysis') {
             steps {
