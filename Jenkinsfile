@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    options{
-        buildDiscarder(logRotator(numToKeepStr: '5'))
-    }
-
     tools {
         maven 'M2_HOME' // Assumes Maven is installed and named 'M2_HOME' in Jenkins global tool configuration
     }
@@ -62,22 +58,6 @@ pipeline {
                 sh 'mvn integration-test'
             }
         }
-        //Generates Javadoc and prints a list of generated classes to the console.
-         stage('Generate Documentation') {
-            steps {
-                script {
-                    // Generate Javadoc
-                    sh 'mvn javadoc:javadoc'
-                    
-                    // Print list of generated classes to the console
-                    sh '''
-                        echo "Generated Javadoc Classes:"
-                        find target/site/apidocs -name "*.html" | grep -v index.html | grep -v overview-summary.html | sed 's|target/site/apidocs/||' | sed 's|.html||' | sed 's|/|.|g'
-                    '''
-                }
-            }
-        }
-
         stage('Docker compose (FrontEnd BackEnd MySql)') {
             steps {
                 script {
