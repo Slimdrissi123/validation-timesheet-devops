@@ -57,6 +57,11 @@ pipeline {
             }
         }
         }
+        stage('Integration Tests') {
+            steps {
+                sh 'mvn integration-test'
+            }
+        }
 
         stage('Docker compose (FrontEnd BackEnd MySql)') {
             steps {
@@ -68,6 +73,7 @@ pipeline {
                 }
             }
         }
+        
     }
     
 
