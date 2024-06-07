@@ -15,14 +15,14 @@ public class ContratController {
     @Autowired
     private ContratService contratService;
 
-//http://localhost:192.168.56.2/api/contrats
+//http://192.168.56.2:8082/api/contrats
     @PostMapping
     public ResponseEntity<Contrat> addContrat(@RequestBody Contrat contrat) {
         Contrat savedContrat = contratService.addContrat(contrat);
         return ResponseEntity.ok(savedContrat);
     }
 
-//http://localhost:192.168.56.2/api/contrats/{id}
+//http://192.168.56.2:8082/api/contrats/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Contrat> getContratById(@PathVariable Long id) {
         Optional<Contrat> contrat = contratService.getContratById(id);
@@ -33,7 +33,7 @@ public class ContratController {
         }
     }
 
-//http://localhost:192.168.56.2/api/contrats/{id}
+//http://192.168.56.2:8082/api/contrats/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContrat(@PathVariable Long id) {
         Optional<Contrat> contrat = contratService.getContratById(id);
