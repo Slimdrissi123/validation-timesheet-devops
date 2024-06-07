@@ -21,6 +21,19 @@ pipeline {
                         sh 'mvn deploy'
                     }
                 }
+        stage('Dockerfile'){
+                   steps{
+                                sh 'docker login -u ihebmouligh .p Iheb2000@'
+                                sh 'docker push ihebmouligh/timesheet-Devops:1.0'
+                            }
+                        }
+        stage('docker-compose.yaml'){
+                   steps{
+                                sh 'docker-compose down -v'
+                                sh 'docker-compose up -d'
+
+                            }
+                        }
 
 
     }
