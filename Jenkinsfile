@@ -7,7 +7,7 @@ pipeline {
         stage('Compile') {
 
             steps {
-                // Compile the Maven project
+               
                 sh 'mvn compile'
             }
         }
@@ -15,16 +15,13 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-        }// The first stage (Rapport JaCoCo) ensures that coverage data is collected and a report is generated.
-         // This includes running the tests and creating a report that shows which parts of the code were covered by the tests
+        }
         stage('Rapport JaCoCo') {
             steps {
                 sh 'mvn test'
                 sh 'mvn jacoco:report'
             }
         }
-        // publishes this report to Jenkins, making it accessible through the Jenkins interface. 
-        //This allows developers and stakeholders to easily view and analyze the code coverage metrics
         stage('JaCoCo coverage report') {
             steps {
                 step([$class: 'JacocoPublisher',
@@ -38,7 +35,7 @@ pipeline {
 
         stage('SonarQube analysis') {
             steps {
-                // Exécution de l'analyse de code avec SonarQube
+                
 
                   sh ''' mvn sonar:sonar \
                         -Dsonar.projectKey=timsheet-devops\
