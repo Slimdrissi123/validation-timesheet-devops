@@ -7,11 +7,6 @@ pipeline {
         EMAIL_CREDENTIALS_ID = credentials('gmailcredentials')
     }
     stages {
-        stage('Clean') {
-            steps {
-                sh "mvn clean install -Dproduct.build.number=b${env.BUILD_NUMBER}"
-            }
-        }
         stage('Compile') {
             steps {
                 sh 'mvn compile'
@@ -20,6 +15,11 @@ pipeline {
         stage('Test Junit & Mockito') {
             steps {
                 sh 'mvn test'
+            }
+        }
+        stage('Jacoco report'){
+            steps{
+                sh 'mvn jacoco:report'
             }
         }
         stage('SonarQube analysis') {
@@ -59,6 +59,7 @@ pipeline {
         stage('Docker compose (FrontEnd BackEnd MySql)') {
             steps {
                 script {
+                    sh '/usr/local/bin/docker-compose down -v'
                     sh '/usr/local/bin/docker-compose up -d'
                 }
             }
@@ -67,7 +68,7 @@ pipeline {
         stage('Deploy to nexus') {
             steps {
                 echo 'Deploying to Nexus server'
-                sh 'mvn deploy'
+                sh "mvn deploy -Dproduct.build.number=b${env.BUILD_NUMBER}"
             }
         }
         stage('Generate documentation') {
@@ -81,11 +82,23 @@ pipeline {
                 }
             }
 
+        stage('JaCoCo coverage report') {
+                    steps {
+                        step([$class: 'JacocoPublisher',
+                              execPattern: '**/target/jacoco.exec',
+                              classPattern: '**/classes',
+                              sourcePattern: '**/src',
+                              exclusionPattern: '*/target/**/,**/*Test*,**/*_javassist/**'
+                        ])
+                    }
+                }
+
+
         stage('Test Email') {
             steps {
                 emailext (
                     subject: "Test Email from Jenkins Pipeline",
-                    body: "Pipeline os AAAAAA OKAAYYYYYY :).",
+                    body: "Pipeline is AAAAAA OKAAYYYYYY :).",
                     to: "slim.drissi@esprit.tn"
 
 
