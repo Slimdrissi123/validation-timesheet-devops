@@ -4,6 +4,7 @@ pipeline {
         MAIN_VERSION = "1.1"
         BUILD_VERSION = "${MAIN_VERSION}-b${env.BUILD_NUMBER}"
         DOCKER_CREDENTIALS = credentials('307f196d-c538-49e8-b350-bc5caa31b442')
+        EMAIL_CREDENTIALS_ID = credentials('gmailcredentials')
     }
     stages {
         stage('Clean') {
@@ -34,7 +35,7 @@ pipeline {
         stage('Set Version') {
             steps {
                 sh "mvn versions:set -DnewVersion=${BUILD_VERSION}"
-                sh "mvn versions:commit" 
+                sh "mvn versions:commit"
             }
         }
         stage('Docker Build') {
@@ -70,14 +71,14 @@ pipeline {
             }
         }
 
-        stage('Email Notification') {
+        stage('Test Email') {
             steps {
                 emailext (
-                    subject: "Pipeline Status: ${currentBuild.currentResult}",
-                    body: """<p>Stage: ${env.STAGE_NAME}</p>
-                             <p>Status: ${currentBuild.currentResult}</p>
-                             <p>Build URL: ${env.BUILD_URL}</p>""",
+                    subject: "Test Email from Jenkins Pipeline",
+                    body: "Pipeline os AAAAAA OKAAYYYYYY :).",
                     to: "slim.drissi@esprit.tn"
+
+
                 )
             }
         }
