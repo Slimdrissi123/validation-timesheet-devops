@@ -23,7 +23,7 @@ pipeline {
                 }
         stage('Dockerfile'){
                    steps{
-                                sh "docker login -u ihebmouligh .p Iheb2000@"
+                                sh "docker login -u ihebmouligh -p Iheb2000@"
                                 sh 'docker push ihebmouligh/timesheet-Devops:1.0'
                             }
                         }
