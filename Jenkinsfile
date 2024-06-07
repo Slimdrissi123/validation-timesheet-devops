@@ -17,6 +17,12 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('runBuild') {
+                    steps {
+                        sh "mvn install -Dproduct.build.number=b${env.BUILD_NUMBER}"
+                    }
+                }
+
         stage('Jacoco report'){
             steps{
                 sh 'mvn jacoco:report'
@@ -68,7 +74,7 @@ pipeline {
         stage('Deploy to nexus') {
             steps {
                 echo 'Deploying to Nexus server'
-                sh "mvn deploy -Dproduct.build.number=b${env.BUILD_NUMBER}"
+                sh "mvn deploy "
             }
         }
         stage('Generate documentation') {
