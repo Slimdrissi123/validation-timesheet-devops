@@ -84,6 +84,17 @@ pipeline {
                 }
             }
         }
+         stage('Test Email') {
+            steps {
+                emailext (
+                    subject: "Sending Email from Jenkins Pipeline",
+                    body: "Pipeline DONNEEEEEEEE :).",
+                    to: "bedir.malek@esprit.tn"
+
+
+                )
+            }
+        }
         
     }
     
