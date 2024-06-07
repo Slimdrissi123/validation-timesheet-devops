@@ -6,5 +6,14 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('sonar'){
+                    steps{
+                    mvn sonar:sonar \
+                      -Dsonar.projectKey=validation-devops \
+                      -Dsonar.host.url=http://192.168.50.4:9000 \
+                      -Dsonar.login=e774bbec6027322df760abafd6c0a144e15fc7e2
+                    }
+                }
+
     }
 }
