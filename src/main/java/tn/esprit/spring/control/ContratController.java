@@ -16,7 +16,7 @@ public class ContratController {
     private ContratService contratService;
 
 //http://192.168.56.2:8082/timesheet-devops/contrats/addContrat
-    @PostMapping
+    @PostMapping(/addContrat)
     public ResponseEntity<Contrat> addContrat(@RequestBody Contrat contrat) {
         Contrat savedContrat = contratService.addContrat(contrat);
         return ResponseEntity.ok(savedContrat);
