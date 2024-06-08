@@ -24,15 +24,15 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-        /*stage('SonarQube analysis') {
+        stage('SonarQube analysis') {
             steps {
                 sh 'mvn sonar:sonar \
                     -Dsonar.projectKey=Firas_Fejjeri \
                     -Dsonar.host.url=http://192.168.50.4:9000 \
                     -Dsonar.login=5ce3852b5c3fe5a0ff9f674d4cfc68c8e472fe93 '
             }
-        }*/
-        stage('Deploy to Nexus') {
+        }
+        /*stage('Deploy to Nexus') {
                     steps {
                         script {
                             nexusArtifactUploader(
@@ -52,6 +52,6 @@ pipeline {
                             )
                         }
                     }
-                }
+                }*/
         }
     }
