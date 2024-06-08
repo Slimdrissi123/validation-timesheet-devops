@@ -9,20 +9,20 @@ import tn.esprit.spring.services.ContratService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/contrats")
+@RequestMapping("/contrats")
 public class ContratController {
 
     @Autowired
     private ContratService contratService;
 
-//http://192.168.56.2:8082/api/contrats
-    @PostMapping
+//http://192.168.56.2:8082/timesheet-devops/contrats/addContrat
+    @PostMapping(/addContrat)
     public ResponseEntity<Contrat> addContrat(@RequestBody Contrat contrat) {
         Contrat savedContrat = contratService.addContrat(contrat);
         return ResponseEntity.ok(savedContrat);
     }
 
-//http://192.168.56.2:8082/api/contrats/{id}
+//http://192.168.56.2:8082/timesheet-devops/contrats/getContratById/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Contrat> getContratById(@PathVariable Long id) {
         Optional<Contrat> contrat = contratService.getContratById(id);
@@ -33,7 +33,7 @@ public class ContratController {
         }
     }
 
-//http://192.168.56.2:8082/api/contrats/{id}
+//http://192.168.56.2:8082/timesheet-devops/contrats/deleteContrat/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContrat(@PathVariable Long id) {
         Optional<Contrat> contrat = contratService.getContratById(id);

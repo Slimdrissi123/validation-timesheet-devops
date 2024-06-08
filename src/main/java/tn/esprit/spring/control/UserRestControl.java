@@ -18,14 +18,14 @@ public class UserRestControl {
 	IUserService userService; 
 
 	
-	// URL : http://localhost:192.168.56.2/timesheet-devops/retrieve-all-users
+	
 	@GetMapping("/retrieve-all-users")
 	public List<User> retrieveAllUsers() {
 		return userService.retrieveAllUsers();
 		//return list;
 	}
  
-	// http://localhost:192.168.56.2/timesheet-devops/retrieve-user/{user-id}
+	
 	@GetMapping("/retrieve-user/{user-id}")
 	public User retrieveUser(@PathVariable("user-id") String userId) {
 		return userService.retrieveUser(userId);
@@ -33,7 +33,7 @@ public class UserRestControl {
 	
 	 
 
-	// Ajouter User : http://localhost:192.168.56.2/timesheet-devops/add-user 
+	
 	@PostMapping("/add-user")
 	public User addUser(@RequestBody User u) {
 		User user = userService.addUser(u); 
@@ -41,15 +41,13 @@ public class UserRestControl {
 	}
 
 	
-	// Supprimer User : 
-	// http://localhost:192.168.56.2/timesheet-devops/remove-user/{user-id}
+	
 	@DeleteMapping("/remove-user/{user-id}") 
 	public void removeUser(@PathVariable("user-id") String userId) { 
 		userService.deleteUser(userId);
 	} 
 
-	// Modifier User 
-	// http://localhost:192.168.56.2/timesheet-devops/modify-user 
+	
 	@PutMapping("/modify-user") 
 	public User updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
