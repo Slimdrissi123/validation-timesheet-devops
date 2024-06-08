@@ -24,7 +24,6 @@ pipeline {
 
         stage('docker-compose.yaml'){
                    steps{
-                                sh '/usr/local/bin/docker-compose down -v'
                                 sh '/usr/local/bin/docker-compose up -d'
 
 
