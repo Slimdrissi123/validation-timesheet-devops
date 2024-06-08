@@ -76,16 +76,7 @@ pipeline {
                 sh "mvn deploy "
             }
         }
-        stage('Generate documentation') {
-                steps {
-                    sh 'mvn javadoc:javadoc'
-                }
-                post {
-                    always {
-                        archiveArtifacts artifacts: '**/target/site/apidocs/**', allowEmptyArchive: true
-                    }
-                }
-            }
+       
 
         stage('JaCoCo coverage report') {
                     steps {
