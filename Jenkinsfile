@@ -1,12 +1,12 @@
 pipeline {
     agent any
     parameters {
-            string(name: 'VERSION', defaultValue: '1.0.0', description: 'The version of the artifact')
-        }
+        string(name: 'VERSION', defaultValue: '1.0.0', description: 'The version of the artifact')
+    }
     stages {
         stage('Cleaning and Compiling'){
             steps{
-            sh 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
         stage('Generating package') {
@@ -28,29 +28,29 @@ pipeline {
             }
         }*/
         stage('Docker Build') {
-                    steps {
-                        script {
-                            docker.build("firasfejjeri/timesheet-devops:1.0")
-                        }
-                    }
+            steps {
+                script {
+                    docker.build("firasfejjeri/timesheet-devops:1.0")
                 }
+            }
+        }
         stage('Docker Push') {
-                    steps {
-                        withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                            sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                            sh "docker push firasfejjeri/timesheet-devops:1.0"
-                        }
-                    }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                    sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
+                    sh "docker push firasfejjeri/timesheet-devops:1.0"
                 }
+            }
+        }
         stage('Docker compose'){
             steps{
                 sh '/usr/libexec/docker/cli-plugins/docker-compose up -d'
             }
         }
-
         stage('Deploy to Nexus') {
-                    steps {
-                     sh 'mvn deploy'
-                }
+            steps {
+                sh 'mvn deploy'
+            }
         }
     }
+}
