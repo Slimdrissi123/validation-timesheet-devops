@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Cleaning and Compiling'){
             steps{
-                sh 'mvn clean compile'
+                sh 'mvn clean compile sh 'mvn clean compile -Dmaven.repo.local=$MAVEN_MIRROR_URL''
             }
         }
         stage('Generating package') {
