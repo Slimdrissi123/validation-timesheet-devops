@@ -30,7 +30,7 @@ pipeline {
         stage('Docker Build') {
                     steps {
                         script {
-                            docker.build("your-dockerhub-username/timesheet-devops:1.0")
+                            docker.build("firasfejjeri/timesheet-devops:1.0")
                         }
                     }
                 }

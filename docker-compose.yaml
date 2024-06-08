@@ -1,0 +1,31 @@
+version : "3.8"
+
+services:
+  postgresdb:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=dbpostgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+  app-timesheet:
+    depends_on:
+      - postgresdb
+    image: firasfejjeri/timesheet-devops:${BUILD_VERSION}
+    restart: unless-stopped
+    ports:
+      - "8083:8082"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url" : "jdbc:postgresql://postgresdb:5432/timesheetdevops",
+        "spring.datasource.username" : "postgres",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+
+volumes:
+  db:
