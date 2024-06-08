@@ -16,12 +16,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'mvn test'
             }
         }
         stage('SonarQube analysis') {
