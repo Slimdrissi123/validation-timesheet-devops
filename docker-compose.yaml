@@ -14,7 +14,7 @@ services:
   app-timesheet:
     depends_on:
       - mysqldb
-    image: ihebmouhligh/timesheet-devops:1.0
+    image: ihebmouhligh/timesheet-devops
     restart: unless-stopped
     ports:
       - "8082:8082"
