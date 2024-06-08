@@ -14,7 +14,7 @@ services:
   app-timesheet:
     depends_on:
       - postgresdb
-    image: firasfejjeri/timesheet-devops:${BUILD_VERSION}
+    image: firasfejjeri/timesheet-devops:1.0
     restart: unless-stopped
     ports:
       - "8083:8082"

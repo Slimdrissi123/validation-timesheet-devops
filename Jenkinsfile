@@ -38,10 +38,15 @@ pipeline {
                     steps {
                         withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
                             sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                            sh "docker push your-dockerhub-username/timesheet-devops:1.0"
+                            sh "docker push firasfejjeri/timesheet-devops:1.0"
                         }
                     }
                 }
+        stage('Docker compose'){
+            steps{
+                sh '/usr/libexec/docker/cli-plugins/docker-compose up -d'
+            }
+        }
 
         /*stage('Deploy to Nexus') {
                     steps {
