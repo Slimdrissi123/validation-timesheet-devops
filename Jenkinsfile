@@ -24,7 +24,7 @@ pipeline {
         stage('Dockerfile'){
                    steps{
                                 sh "docker login -u ihebmouhligh -p Iheb2000@"
-                                sh "docker push ihebmouligh/timesheet-devops:1.0"
+                                sh "docker push ihebmouligh/timesheet-devops:1.0.0"
                             }
                         }
         stage('docker-compose.yaml'){
