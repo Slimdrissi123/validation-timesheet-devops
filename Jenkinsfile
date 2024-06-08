@@ -19,14 +19,30 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('SonarQube analysis') {
+        /*stage('SonarQube analysis') {
             steps {
                 sh 'mvn sonar:sonar \
                     -Dsonar.projectKey=Firas_Fejjeri \
                     -Dsonar.host.url=http://192.168.50.4:9000 \
                     -Dsonar.login=5ce3852b5c3fe5a0ff9f674d4cfc68c8e472fe93 '
             }
-        }
+        }*/
+        stage('Docker Build') {
+                    steps {
+                        script {
+                            docker.build("your-dockerhub-username/timesheet-devops:1.0")
+                        }
+                    }
+                }
+        stage('Docker Push') {
+                    steps {
+                        withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                            sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
+                            sh "docker push your-dockerhub-username/timesheet-devops:1.0"
+                        }
+                    }
+                }
+
         /*stage('Deploy to Nexus') {
                     steps {
                         script {
