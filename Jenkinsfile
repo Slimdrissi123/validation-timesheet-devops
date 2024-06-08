@@ -46,7 +46,7 @@ pipeline {
                                 artifacts: [
                                     [artifactId: 'devops-artifact',
                                     classifier: '',
-                                    file: 'target/*.jar',
+                                    file: 'target/timesheet-devops-1.0.jar',
                                     type: 'jar']
                                 ]
                             )
