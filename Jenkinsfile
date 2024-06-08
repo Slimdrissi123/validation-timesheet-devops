@@ -65,7 +65,6 @@ pipeline {
         stage('Docker compose (FrontEnd BackEnd MySql)') {
             steps {
                 script {
-                    sh '/usr/local/bin/docker-compose down -v'
                     sh '/usr/local/bin/docker-compose up -d'
                 }
             }
