@@ -44,6 +44,7 @@ pipeline {
                 sh "mvn versions:commit"
             }
         }
+
         stage('Docker Build') {
             steps {
                 script {

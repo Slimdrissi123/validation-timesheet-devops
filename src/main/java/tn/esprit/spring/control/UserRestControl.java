@@ -17,7 +17,7 @@ public class UserRestControl {
     UserService userService;
 
 	
-	// URL : http://localhost:????/????/????/retrieve-all-users
+	// URL : http://192.168.56.2:8083/timesheet-devops/user/retrieve-all-users
 	@GetMapping("/retrieve-all-users")
 	public List<User> retrieveAllUsers() {
 		return userService.retrieveAllUsers();
