@@ -48,26 +48,9 @@ pipeline {
             }
         }
 
-        /*stage('Deploy to Nexus') {
+        stage('Deploy to Nexus') {
                     steps {
-                        script {
-                            nexusArtifactUploader(
-                                nexusVersion: 'nexus3',
-                                protocol: 'http',
-                                nexusUrl: '192.168.50.4:8081',
-                                groupId: 'com.devops',
-                                version: "${params.VERSION}",
-                                repository: 'releases',
-                                credentialsId: 'nexus',
-                                artifacts: [
-                                    [artifactId: 'devops-artifact',
-                                    classifier: '',
-                                    file: 'target/timesheet-devops-1.0.jar',
-                                    type: 'jar']
-                                ]
-                            )
-                        }
-                    }
-                }*/
+                     sh 'mvn deploy'
+                }
         }
     }
