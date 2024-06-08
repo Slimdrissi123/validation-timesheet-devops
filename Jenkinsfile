@@ -6,6 +6,7 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
         stage('sonar'){
             steps{
                  sh '''
@@ -36,7 +37,7 @@ pipeline {
 
         steps{
                           sh "docker login -u ihebmouhligh -p Iheb2000@"
-                          sh "docker push ihebmouligh/timesheet-devops:1.0.0"
+                          sh "docker push ihebmouhligh/timesheetdevops:1.0"
                               }
                                   }
 
