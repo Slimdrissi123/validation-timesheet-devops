@@ -21,7 +21,21 @@ pipeline {
                         sh 'mvn deploy'
                     }
                 }
+         stage('Build Docker Image') {
+                    steps {
+                        script {
+                            docker.build("ihebmouligh/timesheet-devops:1.0.0")
+                        }
+                    }
+                }
 
+                stage('Push Docker Image') {
+                    steps {
+                        script {
+                            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                                docker.image("ihebmouligh/timesheet-devops:1.0.0").push()
+                            }
+                        }
 
 
 
